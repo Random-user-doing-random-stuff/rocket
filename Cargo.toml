@@ -1,5 +1,5 @@
 [package]
-name = "rocket_project"
+name = "rocket"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,6 +7,7 @@ edition = "2021"
 argon2 = "0.5.3"
 chrono = { version = "0.4.39", features = ["serde"] }
 diesel = { version = "2.2.6", features = ["chrono", "postgres", "r2d2"] }
+diesel-derive-enum = { version = "2.1.0", features = ["postgres"] }
 diesel_derives = "2.2.3"
 dotenv = "0.15.0"
 rocket = { version = "0.5.1", features = ["json"] }

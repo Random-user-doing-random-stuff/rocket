@@ -374,6 +374,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "diesel-derive-enum"
+version = "2.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "81c5131a2895ef64741dad1d483f358c2a229a3a2d1b256778cdc5e146db64d4"
+dependencies = [
+ "heck 0.4.1",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "diesel_derives"
 version = "2.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -420,7 +432,7 @@ checksum = "c5d9abe6314103864cc2d8901b7ae224e0ab1a103a0a416661b4097b0779b607"
 dependencies = [
  "darling",
  "either",
- "heck",
+ "heck 0.5.0",
  "proc-macro2",
  "quote",
  "syn",
@@ -649,6 +661,12 @@ name = "hashbrown"
 version = "0.15.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bf151400ff0baff5465007dd2f3e717f3fe502074ca563069ce3a6629d07b289"
+
+[[package]]
+name = "heck"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "95505c38b4572b2d910cecb0281560f54b440a19336cbbcb27bf6ce6adc6f5a8"
 
 [[package]]
 name = "heck"
@@ -1351,6 +1369,22 @@ checksum = "2b15c43186be67a4fd63bee50d0303afffcef381492ebe2c5d87f324e1b8815c"
 
 [[package]]
 name = "rocket"
+version = "0.1.0"
+dependencies = [
+ "argon2",
+ "chrono",
+ "diesel",
+ "diesel-derive-enum",
+ "diesel_derives",
+ "dotenv",
+ "rocket 0.5.1",
+ "rocket-include-static-resources",
+ "rocket_dyn_templates",
+ "serde",
+]
+
+[[package]]
+name = "rocket"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a516907296a31df7dc04310e7043b61d71954d703b603cc6867a026d7e72d73f"
@@ -1394,7 +1428,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "698199629d9d732caf84eb6170df649da455567964014f383702ecb15d8233f1"
 dependencies = [
  "entity-tag",
- "rocket",
+ "rocket 0.5.1",
 ]
 
 [[package]]
@@ -1407,7 +1441,7 @@ dependencies = [
  "mime",
  "mime_guess",
  "rc-u8-reader",
- "rocket",
+ "rocket 0.5.1",
  "rocket-etag-if-none-match",
 ]
 
@@ -1436,7 +1470,7 @@ checksum = "5bbab919c9e67df3f7ac6624a32ef897df4cd61c0969f4d66f3ced0534660d7a"
 dependencies = [
  "normpath",
  "notify",
- "rocket",
+ "rocket 0.5.1",
  "walkdir",
 ]
 
@@ -1465,21 +1499,6 @@ dependencies = [
  "time",
  "tokio",
  "uncased",
-]
-
-[[package]]
-name = "rocket_project"
-version = "0.1.0"
-dependencies = [
- "argon2",
- "chrono",
- "diesel",
- "diesel_derives",
- "dotenv",
- "rocket",
- "rocket-include-static-resources",
- "rocket_dyn_templates",
- "serde",
 ]
 
 [[package]]

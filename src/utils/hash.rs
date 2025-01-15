@@ -35,9 +35,7 @@ pub fn hash_password(password: &str, verify: bool) -> Result<String, PasswordErr
 
     // Optionally verify the hash
     if verify {
-        if let Err(e) = verify_password_hash(&password_hash, password) {
-            return Err(e); // Return the error if verification fails
-        }
+        verify_password_hash(&password_hash, password)?
     }
 
     Ok(password_hash)
