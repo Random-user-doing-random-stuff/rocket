@@ -11,7 +11,6 @@ mod schema;
 mod utils;
 
 use diesel::{ExpressionMethods, PgConnection, QueryDsl, RunQueryDsl};
-use models::User;
 use rocket::{
     fs::{relative, FileServer},
     serde::json::Json,
@@ -41,11 +40,4 @@ fn rocket() -> _ {
 #[get("/")]
 fn index() -> &'static str {
     "Hello, world!"
-}
-
-#[get("/test")]
-fn test() {
-    use crate::schema::users::dsl::*;
-    let mut conn: PgConnection = db::establish_connection();
-    let user: Vec<User> = users.load::<User>(&mut conn).expect("msg");
 }

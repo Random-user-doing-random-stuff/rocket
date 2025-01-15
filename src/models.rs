@@ -1,20 +1,26 @@
 use diesel::backend::Backend;
 use diesel::serialize::{self, IsNull, Output, ToSql};
 use diesel_derive_enum::DbEnum;
-use diesel_derives::{AsExpression, FromSqlRow, SqlType};
+use diesel_derives::{AsExpression, FromSqlRow, Queryable, SqlType, Insertable, Selectable};
+use serde::{Deserialize, Serialize};
 use std::io::Write;
+use crate::schema::*;
+use diesel::sql_types::*;
+
 #[derive(SqlType)]
-#[postgres(type_name = "user_role")]
+#[diesel(postgres_type(name = "user_role"))]
 pub struct UserRoleType;
 
-#[derive(Debug, FromSqlRow, AsExpression, PartialEq, Eq)]
-#[sql_type = "UserRoleType"]
+#[derive(Debug, FromSqlRow, AsExpression, PartialEq, Eq, Serialize, Deserialize)]
+#[diesel(sql_type = UserRoleType)]
 pub enum UserRole {
     Admin,
     Professor,
     User,
 }
 
+#[derive(Debug, Queryable, Selectable, Serialize, Deserialize)]
+#[diesel(table_name = users)]
 pub struct User {
     pub id: i32,
     pub first_name: String,
@@ -30,7 +36,8 @@ pub struct User {
     pub password_reset_token_expiry: Option<chrono::NaiveDateTime>,
     pub is_active: bool,
 }
-
+#[derive(Insertable, Serialize, Deserialize)]
+#[diesel(table_name = users)]
 pub struct NewUser<'a> {
     pub first_name: &'a str,
     pub last_name: Option<&'a str>,
@@ -39,3 +46,6 @@ pub struct NewUser<'a> {
     pub phone_number: Option<&'a str>,
     pub role: UserRole,
 }
+
+
+
