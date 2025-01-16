@@ -157,6 +157,7 @@ Log out and log back in for the group change to take effect.
 ### Step 9: Create Docker Compose File
 
 Create a `docker-compose.yml` file with the following content:
+change `POSTGRES_USER` `POSTGRES_PASSWORD` `POSTGRES_DB` to your respective databse user, password and db name.
 
 ```yml
 services:

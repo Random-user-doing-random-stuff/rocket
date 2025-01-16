@@ -47,7 +47,6 @@ diesel::table! {
 diesel::table! {
     use diesel::sql_types::*;
     use super::sql_types::UserRole;
-    use crate::types::UserRoleType;
     
     users (id) {
         id -> Int4,
@@ -56,7 +55,7 @@ diesel::table! {
         email -> Varchar,
         password -> Varchar,
         phone_number -> Nullable<Varchar>,
-        role -> UserRoleType,
+        role -> UserRole,
         created_at -> Nullable<Timestamp>,
         last_updated -> Nullable<Timestamp>,
         last_login -> Nullable<Timestamp>,
