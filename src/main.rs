@@ -12,7 +12,6 @@ mod schema;
 mod types;
 mod utils;
 
-
 use crate::models::User;
 use diesel::{QueryDsl, RunQueryDsl};
 
@@ -48,33 +47,33 @@ fn index() -> &'static str {
 }
 
 #[get("/test")]
-fn frustrating_func() -> Json<Vec<models::TestUser>>{
+fn frustrating_func() -> Json<Vec<models::TestUser>> {
     use self::schema::users;
     use diesel::prelude::*;
 
     let conn = &mut db::establish_connection();
 
-/*     let new_user = models::User {
-        id: 0, // Automatically assigned by SERIAL
-        first_name: "Alice".to_string(),
-        last_name: Some("Smith".to_string()),
-        email: "alice.smith@example.com".to_string(),
-        password: "hashedpassword".to_string(),
-        phone_number: Some("+987654321".to_string()),
-        role: models::UserRole::Professor,
-        created_at: None,
-        last_updated: None,
-        last_login: None,
-        password_reset_token: None,
-        password_reset_token_expiry: None,
-        is_active: true,
-    };
+    /*     let new_user = models::User {
+           id: 0, // Automatically assigned by SERIAL
+           first_name: "Alice".to_string(),
+           last_name: Some("Smith".to_string()),
+           email: "alice.smith@example.com".to_string(),
+           password: "hashedpassword".to_string(),
+           phone_number: Some("+987654321".to_string()),
+           role: models::UserRole::Professor,
+           created_at: None,
+           last_updated: None,
+           last_login: None,
+           password_reset_token: None,
+           password_reset_token_expiry: None,
+           is_active: true,
+       };
 
-    diesel::insert_into(users::table)
-        .values(&new_user)
-        .execute(conn)
-        .expect("Error inserting user");
- */
+       diesel::insert_into(users::table)
+           .values(&new_user)
+           .execute(conn)
+           .expect("Error inserting user");
+    */
     let results = users::table
         .select((
             users::id,
@@ -86,13 +85,11 @@ fn frustrating_func() -> Json<Vec<models::TestUser>>{
         .load::<models::TestUser>(conn)
         .expect("Error loading users");
 
-Json(results)
-
+    Json(results)
 }
 
-
 #[post("/testi")]
-fn mmm() -> Json<User>{
+fn mmm() -> Json<User> {
     use self::schema::users;
     use diesel::prelude::*;
 
@@ -118,5 +115,5 @@ fn mmm() -> Json<User>{
         .values(&new_user)
         .get_result(conn)
         .expect("Error inserting user");
-Json(user)
+    Json(user)
 }

@@ -47,7 +47,7 @@ diesel::table! {
 diesel::table! {
     use diesel::sql_types::*;
     use super::sql_types::UserRole;
-    
+
     users (id) {
         id -> Int4,
         first_name -> Varchar,
@@ -97,10 +97,4 @@ diesel::joinable!(word_tags -> tags (tag_id));
 diesel::joinable!(word_tags -> words (word_id));
 diesel::joinable!(words -> users (created_by));
 
-diesel::allow_tables_to_appear_in_same_query!(
-    feedbacks,
-    tags,
-    users,
-    word_tags,
-    words,
-);
+diesel::allow_tables_to_appear_in_same_query!(feedbacks, tags, users, word_tags, words,);
