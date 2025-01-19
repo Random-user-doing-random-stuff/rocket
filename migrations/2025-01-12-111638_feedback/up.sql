@@ -1,4 +1,4 @@
-CREATE TYPE feedback_type AS ENUM ('suggestion', 'bug report', 'comment');
+CREATE TYPE feedback_type AS ENUM ('suggestion', 'bug_report', 'comment');
 
 CREATE TABLE IF NOT EXISTS feedbacks (
     id SERIAL PRIMARY KEY,

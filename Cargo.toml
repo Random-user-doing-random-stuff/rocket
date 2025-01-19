@@ -12,5 +12,5 @@ diesel_derives = "2.2.3"
 dotenv = "0.15.0"
 rocket = { version = "0.5.1", features = ["json"] }
 rocket-include-static-resources = "0.10.5"
-rocket_dyn_templates = "0.2.0"
+rocket_dyn_templates = { version = "0.2.0", features = ["tera"] }
 serde = { version = "1.0.217", features = ["derive"] }

@@ -1,0 +1,12 @@
+
+
+{% block content %}
+<h1 class="text-center my-4">Welcome to Rocket + Bootstrap</h1>
+<div class="row">
+    {% for card in cards %}
+    <div class="col-md-4">
+        {% include "components/card.html.tera" %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
