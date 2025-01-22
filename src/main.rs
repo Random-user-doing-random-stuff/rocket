@@ -9,9 +9,9 @@ mod db;
 mod models;
 mod routes;
 mod schema;
+mod tera;
 mod types;
 mod utils;
-
 use crate::models::enums::UserRole;
 use crate::models::user::{NewUser, User};
 use rocket::{
@@ -36,11 +36,7 @@ fn rocket() -> _ {
         ))
         // Mount the favicon route
         .mount("/", routes![favicon])
-        .mount("/landing", FileServer::from(relative!("static/landing")))
-        .mount("/tradutor", FileServer::from(relative!("static/camera")))
-        .mount("/registar", FileServer::from(relative!("static/signin")))
-        // Mount routes for user management
-        .mount("/", routes![index])
+        .mount("/tera", routes![tera::index, tera::hello, tera::about])
         .mount(
             "/api",
             routes![
@@ -49,12 +45,8 @@ fn rocket() -> _ {
                 routes::api::users::post::new_user
             ],
         )
-        .attach(Template::fairing())
-}
-
-#[get("/")]
-pub fn index() -> Template {
-    let mut context = HashMap::new();
-    context.insert("title", "Rocket + Bootstrap Project");
-    Template::render("index", &context)
+        // .attach(Template::fairing())
+        .attach(Template::custom(|engines| {
+            tera::customize(&mut engines.tera)
+        }))
 }
