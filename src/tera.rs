@@ -8,6 +8,16 @@ pub fn index() -> Redirect {
     Redirect::to(uri!("/tera", hello(name = "Your Name")))
 }
 
+#[get("/new-user")]
+pub fn new_user() -> Template {
+    Template::render(
+        "tera/new-user",
+        context! {
+            title: "New User",
+        },
+    )
+}
+
 #[get("/hello/<name>")]
 pub fn hello(name: &str) -> Template {
     Template::render(

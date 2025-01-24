@@ -12,7 +12,6 @@ mod schema;
 mod tera;
 mod types;
 mod utils;
-use crate::models::enums::UserRole;
 use crate::models::user::{NewUser, User};
 use rocket::{
     form::Form,
@@ -36,7 +35,10 @@ fn rocket() -> _ {
         ))
         // Mount the favicon route
         .mount("/", routes![favicon])
-        .mount("/tera", routes![tera::index, tera::hello, tera::about])
+        .mount(
+            "/tera",
+            routes![tera::index, tera::hello, tera::about, tera::new_user],
+        )
         .mount(
             "/api",
             routes![
