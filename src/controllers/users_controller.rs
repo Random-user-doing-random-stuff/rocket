@@ -1,4 +1,5 @@
 use crate::db::establish_connection;
+use crate::models::user::UpdatedUser;
 use crate::{
     models::user::{NewUser, User},
     schema::users,
@@ -28,7 +29,7 @@ pub fn create_user(user: NewUser) -> User {
         .expect("Error saving new user")
 }
 
-pub fn update_user(id: i32, user: NewUser) -> User {
+pub fn update_user(id: i32, user: UpdatedUser) -> User {
     let conn = &mut establish_connection();
     diesel::update(users::table.find(id))
         .set(&user)

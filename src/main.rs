@@ -12,15 +12,7 @@ mod schema;
 mod tera;
 mod types;
 mod utils;
-use crate::models::enums::UserRole;
-use crate::models::user::{NewUser, User};
-use rocket::{
-    form::Form,
-    fs::{relative, FileServer},
-    serde::json::Json,
-};
 use rocket_dyn_templates::Template;
-use std::collections::HashMap;
 
 // Define a static response handler for serving the favicon
 static_response_handler! {
@@ -42,7 +34,8 @@ fn rocket() -> _ {
             routes![
                 routes::api::users::get::list_users,
                 routes::api::users::get_id::get_user,
-                routes::api::users::post::new_user
+                routes::api::users::post::new_user,
+                routes::api::users::put::update_user,
             ],
         )
         // .attach(Template::fairing())
