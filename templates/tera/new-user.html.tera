@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Tera Demo - New User</title>
+  </head>
+  <body>
+    <form action="/api/users" method="post">
+      <label for="first_name">First Name:</label>
+      <input required type="text" id="first_name" name="first_name">
+      <label for="last_name">Last Name:</label>
+      <input required type="text" id="last_name" name="last_name">
+      <label for="email">Email:</label>
+      <input required type="email" id="email" name="email">
+      <label for="password">Password:</label>
+      <input required type="password" id="password" name="password" required>
+      <label for="phone_number">Phone Number:</label>
+      <input type="tel" id="phone_number" name="phone_number">
+      <label for="role">Role:</label>
+      <select id="role" name="role">
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+        <option value="guest">Guest</option>
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+  </body>

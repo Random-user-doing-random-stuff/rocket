@@ -19,129 +19,146 @@ Ensure you have the following installed:
 - Password hashing (coming soon)
 
 ## Installation
-use linux for this setup( might as well using linux and searching for tutorials for everything u need to make rather than using windows)
 
-update all ur shit
+### Step 1: Update System
+
+Update your system packages:
+
 ```bash
 sudo apt update
 ```
 
-in case yout dumbass dont got git installed
+### Step 2: Install Git
+
+Install Git if not already installed:
+
 ```bash
 sudo apt install git
 ```
-clone the repository
+
+### Step 3: Clone the Repository
+
+Clone the project repository:
+
 ```bash
 git clone https://github.com/Random-user-doing-random-stuff/rocket.git
 ```
-in case u dont have curl installed, u dumb fuck
+
+### Step 4: Install Curl
+
+Install Curl if not already installed:
+
 ```bash
 sudo apt install curl
 ```
 
-install rust (this will be the happiest day of ur life) (this is for linux and wsl's btw, bc if u're still using windows in the big 25 u might as well kill yourself)
+### Step 5: Install Rust
+
+Install Rust:
+
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-install the building tools for cargo (cc, gcc and blah blah blah, just need cc(i think))
+### Step 6: Install Build Tools
+
+Install the necessary build tools:
+
 ```bash
 sudo apt install build-essential
 ```
 
-compile libraries (this will mainly install them in ur project) (use release flag if you'd like or remove if it if u dont duuh)
+### Step 7: Compile Libraries
+
+Compile the project libraries:
+
 ```bash
 cargo build --release
 ```
 
-Then follow all these annmoying steps to install docker and docker-composer 
- thank chat gpt for making this tutorial for me, otherwise you'd be fucked
-### Step 2: Install dependencies
+### Step 8: Install Docker and Docker Compose
+
+#### Install Dependencies
+
 Install necessary dependencies:
- 
+
 ```bash
 sudo apt install -y apt-transport-https ca-certificates curl gnupg lsb-release
 ```
- 
-### Step 3: Add Docker's official GPG key
-Add Docker’s official GPG key to verify the authenticity of the packages:
- 
+
+#### Add Docker's GPG Key
+
+Add Docker’s official GPG key:
+
 ```bash
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 ```
- 
-### Step 4: Add Docker's official repository
-Add the Docker repository to your package sources:
- 
+
+#### Add Docker Repository
+
+Add the Docker repository:
+
 ```bash
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
- 
-### Step 5: Install Docker Engine
-Update the package lists and install Docker:
- 
+
+#### Install Docker Engine
+
+Update package lists and install Docker:
+
 ```bash
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io
 ```
- 
-### Step 6: Verify Docker installation
-Check if Docker was successfully installed:
- 
+
+#### Verify Docker Installation
+
+Check Docker version:
+
 ```bash
 sudo docker --version
 ```
- 
-You should see the version of Docker displayed.
- 
-### Step 7: Enable Docker to start on boot
-Enable Docker to start automatically on system boot:
- 
+
+#### Enable Docker on Boot
+
+Enable Docker to start on boot:
+
 ```bash
 sudo systemctl enable docker
 ```
- 
-### Step 8: Install Docker Compose
-Now, to install Docker Compose, follow these steps:
- 
-1. Download the latest stable version of Docker Compose:
- 
+
+#### Install Docker Compose
+
+Download and install Docker Compose:
+
 ```bash
 sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-```
- 
-2. Make Docker Compose executable:
- 
-```bash
 sudo chmod +x /usr/local/bin/docker-compose
 ```
- 
-### Step 9: Verify Docker Compose installation
-Check if Docker Compose is installed properly:
- 
+
+#### Verify Docker Compose Installation
+
+Check Docker Compose version:
+
 ```bash
 docker-compose --version
 ```
- 
-You should see the version of Docker Compose displayed.
- 
-### Step 10: Add your user to the Docker group (optional)
+
+#### Add User to Docker Group (Optional)
+
 To run Docker commands without `sudo`, add your user to the Docker group:
- 
+
 ```bash
 sudo usermod -aG docker $USER
 ```
- 
-You will need to log out and log back in for the group change to take effect.
- 
----
-i restarted my pc,  so ill put the command here anyways
-```bash
-shutdown -h now
-```
 
-in case u are lost and dont have a `docker-compose.yml` file here is a template.
-ofc you should replace the environment variables for what you'd like
+Log out and log back in for the group change to take effect.
+
+### Step 9: Create Docker Compose File
+
+Create a `docker-compose.yml` file with the following content:
+change `POSTGRES_USER` `POSTGRES_PASSWORD` `POSTGRES_DB` to your respective databse user, password and db name.
+
 ```yml
 services:
   db:
@@ -153,23 +170,39 @@ services:
       POSTGRES_DB: mydb
     ports:
       - "5432:5432"
-``` 
-
-create the docker container or image or whatever it is with this command
 ```
+
+### Step 10: Start Docker Compose
+
+Start the Docker container:
+
+```bash
 docker-compose up
 ```
 
-now in the `.env` file you will put the following url
+### Step 11: Configure Environment Variables
+
+Add the following to your `.env` file:
+
 ```text
 DATABASE_URL=postgres://user:password@localhost/db
 ```
-and dont forget to put the values u set in the yml file
 
-dont forget to install diesel cli
+Replace the values with those set in the `docker-compose.yml` file.
+
+### Step 12: Install Diesel CLI
+
+Install Diesel CLI:
+
 ```bash
 cargo install diesel_cli --no-default-features --features postgres
-```
-```bash
 sudo apt install libpq-dev
+```
+
+### Step 13: Restart System (Optional)
+
+Restart your system:
+
+```bash
+shutdown -h now
 ```
