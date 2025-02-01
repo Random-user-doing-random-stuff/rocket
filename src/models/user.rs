@@ -1,5 +1,5 @@
 use chrono;
-use diesel::{Insertable, Queryable};
+use diesel::{Insertable, PgConnection, Queryable, RunQueryDsl};
 use diesel_derives::AsChangeset;
 use serde::Serialize;
 #[derive(Debug, Queryable, Serialize)]
@@ -43,4 +43,13 @@ pub struct UpdatedUser {
     pub phone_number: Option<String>,
     pub permissions: Option<i16>, // Unsigned 16-bit integer
     pub is_active: Option<bool>,
+}
+
+impl User {
+    fn create(conn: &mut PgConnection, new_user: NewUser) -> User {
+        diesel::insert_into(crate::schema::users::table)
+            .values(&new_user)
+            .get_result(conn)
+            .expect("Error inserting new user")
+    }
 }
