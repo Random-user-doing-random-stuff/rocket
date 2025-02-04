@@ -2,6 +2,8 @@ use chrono;
 use diesel::{Insertable, PgConnection, Queryable, RunQueryDsl};
 use diesel_derives::AsChangeset;
 use serde::Serialize;
+
+use crate::db::establish_connection;
 #[derive(Debug, Queryable, Serialize)]
 #[diesel(table_name = crate::schema::users)]
 pub struct User {
@@ -32,7 +34,7 @@ pub struct NewUser {
     pub is_active: Option<bool>,
 }
 
-#[derive(Debug, Insertable, FromForm, AsChangeset)]
+#[derive(Debug, Insertable, FromForm, AsChangeset, Serialize)]
 #[diesel(table_name = crate::schema::users)]
 pub struct UpdatedUser {
     pub username: Option<String>,
@@ -46,7 +48,8 @@ pub struct UpdatedUser {
 }
 
 impl User {
-    fn create(conn: &mut PgConnection, new_user: NewUser) -> User {
+    pub fn create(new_user: NewUser) -> User {
+        let conn = &mut establish_connection();
         diesel::insert_into(crate::schema::users::table)
             .values(&new_user)
             .get_result(conn)

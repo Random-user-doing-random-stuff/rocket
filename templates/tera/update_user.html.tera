@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User</title>
+</head>
+<body>
+    <h1>Update User</h1>
+    <form action="/api/api/users/{{ user.id }}" method="post">
+        <input type="hidden" name="_method" value="PUT"> <!-- Rocket method override -->
+
+        <label>Username:</label>
+        <input type="text" name="username" value="{{ user.username | default(value='') }}"><br>
+
+        <label>First Name:</label>
+        <input type="text" name="first_name" value="{{ user.first_name | default(value='') }}"><br>
+
+        <label>Last Name:</label>
+        <input type="text" name="last_name" value="{{ user.last_name | default(value='') }}"><br>
+
+        <label>Email:</label>
+        <input type="email" name="email" value="{{ user.email | default(value='') }}"><br>
+
+        <label>Password:</label>
+        <input type="password" name="password"><br>
+
+        <label>Phone Number:</label>
+        <input type="text" name="phone_number" value="{{ user.phone_number | default(value='') }}"><br>
+
+        <label>Permissions:</label>
+        <input type="number" name="permissions" value="{{ user.permissions | default(value='') }}"><br>
+
+        <label>Active:</label>
+        <input type="hidden" name="is_active" value="false"> <!-- Default hidden field -->
+        <input type="checkbox" name="is_active" value="true" {% if user.is_active %}checked{% endif %}><br>
+
+        <button type="submit">Update User</button>
+    </form>
+</body>
+</html>

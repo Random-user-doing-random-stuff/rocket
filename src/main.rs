@@ -12,6 +12,7 @@ mod schema;
 mod tera;
 mod types;
 mod utils;
+use db::stage;
 use rocket_dyn_templates::Template;
 
 // Define a static response handler for serving the favicon
@@ -22,13 +23,23 @@ static_response_handler! {
 #[launch]
 fn rocket() -> _ {
     rocket::build()
+        .attach(stage())
         // Attach static resources for the favicon
         .attach(static_resources_initializer!(
             "favicon" => "assets/favicon.svg", // Map the favicon resource
         ))
         // Mount the favicon route
         .mount("/", routes![favicon])
-        .mount("/tera", routes![tera::index, tera::hello, tera::about])
+        .mount(
+            "/tera",
+            routes![
+                tera::index,
+                tera::hello,
+                tera::about,
+                tera::admin,
+                tera::update_user_form
+            ],
+        )
         .mount(
             "/api",
             routes![

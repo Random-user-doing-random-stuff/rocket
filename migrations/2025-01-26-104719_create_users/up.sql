@@ -1,6 +1,6 @@
 -- Your SQL goes here
 CREATE TABLE IF NOT EXISTS users (
-    id INTEGER NOT NULL,
+    id SERIAL,
     username TEXT NOT NULL,
     first_name TEXT,
     last_name TEXT,
